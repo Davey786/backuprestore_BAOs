@@ -1,3 +1,4 @@
+--Create 50 Databases
 DECLARE @dbName SYSNAME
 DECLARE @sql NVARCHAR(MAX)
 
@@ -9,3 +10,16 @@ BEGIN
     EXEC (@sql)
     SET @i += 1
 END
+
+
+--DROP the 50 Databases
+DECLARE @i INT = 1;
+DECLARE @sql NVARCHAR(MAX) = '';
+
+WHILE @i <= 50
+BEGIN
+    SET @sql = @sql + 'DROP DATABASE IF EXISTS database' + CAST(@i AS NVARCHAR(10)) + '; ';
+    SET @i = @i + 1;
+END
+
+EXEC sp_executesql @sql;
